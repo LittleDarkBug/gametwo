@@ -1,0 +1,10 @@
+{
+    "levels": [
+        {
+            "id": 1,
+            "name": "Harmonic Genesis",
+            "targetShape": "circle",
+            "timeLimit": 60
+        }
+    ]
+}
