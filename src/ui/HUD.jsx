@@ -1,8 +1,20 @@
 import useStore, { ENEMY_STATES } from '../state/Store'
 import { motion, AnimatePresence } from 'framer-motion'
+import React from 'react'
 
 export function HUD() {
     const { playerHp, playerMaxHp, enemyHp, enemyMaxHp, level, currency, enemyState } = useStore()
+    const [damageNum, setDamageNum] = React.useState(null)
+    const prevEnemyHp = React.useRef(enemyHp)
+
+    React.useEffect(() => {
+        if (enemyHp < prevEnemyHp.current) {
+            const dmg = prevEnemyHp.current - enemyHp
+            setDamageNum({ val: dmg, id: Date.now() })
+            setTimeout(() => setDamageNum(null), 800)
+        }
+        prevEnemyHp.current = enemyHp
+    }, [enemyHp])
 
     let hintText = ""
     let hintColor = "white"
@@ -34,6 +46,28 @@ export function HUD() {
                         style={{ color: hintColor }}
                     >
                         {hintText}
+                    </motion.div>
+                )}
+                {damageNum && (
+                    <motion.div
+                        key={damageNum.id}
+                        className="damage-number"
+                        initial={{ y: 0, opacity: 1, scale: 0.5 }}
+                        animate={{ y: -100, opacity: 0, scale: 1.5 }}
+                        exit={{ opacity: 0 }}
+                        style={{
+                            position: 'absolute',
+                            top: '40%',
+                            left: '50%',
+                            color: '#ff0055',
+                            fontWeight: 'bold',
+                            fontSize: '4rem',
+                            zIndex: 100,
+                            textShadow: '0 0 10px white',
+                            pointerEvents: 'none'
+                        }}
+                    >
+                        -{damageNum.val}
                     </motion.div>
                 )}
             </AnimatePresence>

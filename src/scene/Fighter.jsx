@@ -14,8 +14,8 @@ export function Fighter({ position, color, isPlayer, state }) {
             state === PLAYER_STATES.ATTACK || state === ENEMY_STATES.ATTACK ? [0, Math.PI / 4, 0] : [0, 0, 0],
         colorSpring: state === PLAYER_STATES.HIT || state === ENEMY_STATES.HIT ? '#ff0000' : color,
         scale: state === PLAYER_STATES.ATTACK || state === ENEMY_STATES.ATTACK ? 1.4 : 1,
-        posOffset: state === PLAYER_STATES.ATTACK || state === ENEMY_STATES.ATTACK ? (isPlayer ? 2 : -2) : 0,
-        config: { tension: 300, friction: 15 } // Snappier
+        posOffset: state === PLAYER_STATES.ATTACK || state === ENEMY_STATES.ATTACK ? (isPlayer ? 3.5 : -3.5) : 0,
+        config: { tension: 200, friction: 20 } // Slightly smoother lunge
     })
 
     // Idle Animation (Breathing)

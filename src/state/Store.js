@@ -55,7 +55,7 @@ const useStore = create((set, get) => ({
     // --- Player Stats ---
     playerMaxHp: 100,
     playerHp: 100,
-    playerAttack: 10,
+    playerAttack: 25, // Boosted for faster fights
     playerDefense: 5,
     playerStamina: 100,
     playerMaxStamina: 100,

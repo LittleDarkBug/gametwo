@@ -27,6 +27,10 @@ export function CameraRig() {
         } else if (playerState === PLAYER_STATES.BLOCK) {
             // Pull back on block
             targetPos.current.set(0, baseHeight + 0.2, baseDist + 0.5)
+        } else if (useStore.getState().enemyState === 'HIT') {
+            // Shake on Hit
+            const t = state.clock.getElapsedTime()
+            targetPos.current.set(Math.sin(t * 50) * 0.2, baseHeight + Math.cos(t * 50) * 0.2, baseDist - 0.5)
         } else {
             // Idle sway
             const t = state.clock.getElapsedTime()

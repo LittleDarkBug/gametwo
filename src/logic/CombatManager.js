@@ -5,9 +5,7 @@ export const useCombatLogic = () => {
         playerState, setPlayerState,
         enemyState, setEnemyState,
         damageEnemy, damagePlayer,
-        playerStamina,
-        playerAttack,
-        enemyHp
+        playerAttack
     } = useStore()
 
     const handleAttack = (direction) => {
@@ -16,11 +14,14 @@ export const useCombatLogic = () => {
         // Attack Logic
         setPlayerState(PLAYER_STATES.ATTACK)
 
-        // Check Hit (Simple timing check for now, later we check Enemy State)
+        // Check Hit
         setTimeout(() => {
-            if (enemyState === ENEMY_STATES.BLOCK) {
+            // Get fresh state
+            const currentEnemyState = useStore.getState().enemyState
+
+            if (currentEnemyState === ENEMY_STATES.BLOCK) {
                 // Blocked!
-                // Maybe recoil?
+                // TODO: Add recoil or spark effect
             } else {
                 // Hit!
                 damageEnemy(playerAttack)
@@ -29,8 +30,8 @@ export const useCombatLogic = () => {
             }
 
             // Reset Player
-            setTimeout(() => setPlayerState(PLAYER_STATES.IDLE), 500)
-        }, 200) // Delay for animation impact
+            setTimeout(() => setPlayerState(PLAYER_STATES.IDLE), 500) // Longer cooldown for animation
+        }, 150) // Impact timing
     }
 
     const handleBlock = (down) => {
